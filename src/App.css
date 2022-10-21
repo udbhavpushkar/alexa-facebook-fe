@@ -17,3 +17,13 @@ input{
   width: 100%;
 }
 
+.tabs{
+  display: flex;
+  justify-content: center;
+}
+
+.tabs div{
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid grey;
+}

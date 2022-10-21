@@ -17,13 +17,26 @@ const PostList = (props) => {
             console.log(e);
         }
     }
+
+    const handleDeletePost = async (id) => {
+        //api for deleting a post
+        try {
+            let response = await axios.delete(`http://localhost:8005/post/${id}`)
+            console.log(response.data);
+            fetchAllPosts()
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
     return (
         <div>
             {postsData.map((post) => {
                 return (
-                    <div key={post.id} style={{ marginBottom: "20px" }}>
+                    <div key={post._id} style={{ marginBottom: "20px" }}>
                         <div style={{ fontSize: "22px", fontWeight: "bolder" }}>{post.title}</div>
                         <div>{post.content}</div>
+                        <button onClick={() => { handleDeletePost(post._id) }}>Delete</button>
                     </div>
                 )
             })}
