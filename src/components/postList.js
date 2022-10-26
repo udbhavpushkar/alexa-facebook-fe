@@ -3,9 +3,15 @@ import axios from "axios";
 
 const PostList = (props) => {
     const [postsData, setPostsData] = useState([])
+    const [currentUser, setCurrentUser] = useState(null)
 
     useEffect(() => {
         fetchAllPosts()
+    }, [props.updated])
+
+    useEffect(() => {
+        fetchAllPosts()
+        setCurrentUser(localStorage.getItem("user_id"))
     }, [])
 
     const fetchAllPosts = async () => {
@@ -29,6 +35,7 @@ const PostList = (props) => {
         }
 
     }
+
     return (
         <div>
             {postsData.map((post) => {
@@ -36,7 +43,11 @@ const PostList = (props) => {
                     <div key={post._id} style={{ marginBottom: "20px" }}>
                         <div style={{ fontSize: "22px", fontWeight: "bolder" }}>{post.title}</div>
                         <div>{post.content}</div>
-                        <button onClick={() => { handleDeletePost(post._id) }}>Delete</button>
+                        <div>Owner : {post.owner.name}</div>
+                        {currentUser === post.owner._id ?
+                            <button onClick={() => { handleDeletePost(post._id) }}>Delete</button>
+                            : null}
+
                     </div>
                 )
             })}

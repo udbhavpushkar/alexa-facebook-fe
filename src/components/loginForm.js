@@ -32,6 +32,8 @@ const LoginForm = (props) => {
             } else {
                 let response = await axios.post("http://localhost:8005/user/login", formData)
                 console.log(response.data);
+                localStorage.setItem("token", response.data.token)
+                localStorage.setItem("user_id", response.data.id)
                 props.setIsLoggedIn(true)
             }
         } catch (e) {
